@@ -23,7 +23,6 @@ let input =
     |> remove_last
 
 let vals = parse_vals regex_str input
-// vals |> List.iter (fun (a, b) -> printfn "%d %d" a b)
 let ans = vals |> List.sumBy (fun (a, b) -> int a * int b)
 
 printfn "%d" ans
