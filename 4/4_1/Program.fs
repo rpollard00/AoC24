@@ -18,15 +18,15 @@ let se = [ (1, 1); (2, 2); (3, 3) ]
 let card = [ n; s; e; w; nw; ne; sw; se ]
 let xmas_card = card |> List.map (fun dir -> List.zip xmas dir)
 
-let x_s_collector = ResizeArray<int * int>()
+let x_s =
+    seq {
+        for r in 0..height do
+            for c in 0..width do
+                if grid.[r].[c] = 'X' then
+                    yield (r, c)
+    }
+    |> List.ofSeq
 
-for r in 0..height do
-    for c in 0..width do
-        if grid.[r].[c] = 'X' then
-            // printfn "Pos (%d, %d) is %c" r c grid.[r].[c]
-            x_s_collector.Add((r, c))
-
-let x_s = x_s_collector |> List.ofSeq
 
 let is_char (x: char) ((r, c): int * int) =
     if r > width || c > height then false
