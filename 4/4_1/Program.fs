@@ -27,13 +27,10 @@ let x_s =
     }
     |> List.ofSeq
 
-
-let is_char (x: char) ((r, c): int * int) =
-    if r > width || c > height then false
-    elif r < 0 || c < 0 then false
-    elif grid.[r].[c] = x then true
-    else false
-
+let is_char x (r, c) =
+    match r, c with
+    | _ when r < 0 || c < 0 || r > width || c > height -> false
+    | _ -> grid.[r].[c] = x
 
 let is_xmas dir sr sc =
     dir |> List.forall (fun (v, (r, c)) -> is_char v (sr + r, sc + c))
