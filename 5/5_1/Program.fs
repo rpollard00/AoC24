@@ -3,11 +3,7 @@
 let input = File.ReadLines("input_test.txt") |> Seq.toList
 let break_pt = input |> List.findIndex (fun e -> e.Length = 0)
 let (rules, pagesr) = input |> List.splitAt break_pt
-// there is certainly a more concise way to do this split
 let pages = pagesr[1..] |> List.map (fun pr -> pr.Split(','))
-
-let pl l =
-    l |> List.iter (fun s -> printfn "%s" s)
 
 let rules_tups =
     rules
@@ -32,7 +28,6 @@ let rec valid_pgs (pgs: string array) =
     else
         let has_next = has_next_page pgs[0] pgs[1] rules_map
         if has_next = true then valid_pgs pgs[1..] else false
-
 
 let valid_pages = pages |> List.filter (valid_pgs)
 let middle_page_sum = valid_pages |> List.sumBy (fun p -> int p[p.Length / 2])

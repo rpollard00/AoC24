@@ -3,11 +3,7 @@
 let input = File.ReadLines("input.txt") |> Seq.toList
 let break_pt = input |> List.findIndex (fun e -> e.Length = 0)
 let (rules, pagesr) = input |> List.splitAt break_pt
-// there is certainly a more concise way to do this split
 let pages = pagesr[1..] |> List.map (fun pr -> pr.Split(','))
-
-let pl l =
-    l |> List.iter (fun s -> printfn "%s" s)
 
 let rules_tups =
     rules
@@ -48,14 +44,7 @@ let rec valid_filter (pgs: string array) =
         if has_next = true then valid_filter pgs[1..] else false
 
 let invalid_filter pgs = valid_filter pgs = false
-
 let invalid_pages = pages |> List.filter (invalid_filter)
-
-// we know what the middle position is for a given row
-// we start by assuming each value is in the 0 pos
-// we check it against everything in its row (except itself)
-// if its final position is the middle position, we save it
-// if its final position is anywhere else, we check the next value
 
 let res =
     invalid_pages
