@@ -23,6 +23,7 @@ let rev_rules_map =
     |> List.map (fun (l, r) -> l, List.map fst r)
     |> Map.ofList
 
+
 let has_next_page k next (mp: Map<string, list<string>>) =
     match Map.tryFind k mp with
     | Some v -> List.contains next v
@@ -33,7 +34,7 @@ let num_matches row lst =
 
 let get_pos pg row rmap =
     match Map.tryFind pg rmap with
-    | Some v -> num_matches row rmap[pg]
+    | Some v -> num_matches row v
     | None -> 0
 
 let rec valid_filter (pgs: string array) =
